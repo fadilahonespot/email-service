@@ -1,4 +1,4 @@
-package main
+package service
 
 type RequestBody struct {
     RecipientEmail string `json:"email"`

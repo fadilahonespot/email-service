@@ -1,42 +1,23 @@
 package main
 
 import (
-    "log"
-    "net/http"
-    "os"
+	"log"
+	"net/http"
 
-    "gopkg.in/yaml.v2"
+	"github.com/fadilahonespot/email-service/service"
 )
-
-// Global SMTP server configuration variable
-var smtpConfig SMTPConfig
-
-// Load SMTP server configuration from the YAML file
-func loadSMTPConfig(filename string) error {
-    data, err := os.ReadFile(filename)
-    if err != nil {
-        return err
-    }
-
-    err = yaml.Unmarshal(data, &smtpConfig)
-    if err != nil {
-        return err
-    }
-
-    return nil
-}
 
 func main() {
 
-    err := loadSMTPConfig("config.yaml")
+    err := service.LoadSMTPConfig("config.yaml")
     if err != nil {
         log.Fatalf("Failed to load SMTP configuration: %v", err)
     }
 
     // Define the endpoint for sending the email
-    http.HandleFunc("/api/book", SendEmailHandler)
+    http.HandleFunc("/api/email", service.SendEmailHandler)
 
     // Start the HTTP server
-    log.Println("Server listening on http://localhost:8080")
-    log.Fatal(http.ListenAndServe(":8080", nil))
+    log.Println("Server listening on http://localhost:8011")
+    log.Fatal(http.ListenAndServe(":8011", nil))
 }
