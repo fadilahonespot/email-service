@@ -29,7 +29,7 @@ func SendEmailHandler(w http.ResponseWriter, r *http.Request) {
 
     // Compose the email message
     subject := fmt.Sprintf("Contact received for %s", requestBody.Name)
-    body, err := getEmailBody("email-template.html", requestBody)
+    body, err := getEmailBody("email_template.html", requestBody)
     if err != nil {
         log.Println("Failed to read email template:", err)
         http.Error(w, "Failed to read email template", http.StatusInternalServerError)
